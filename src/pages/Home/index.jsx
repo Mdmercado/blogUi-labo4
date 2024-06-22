@@ -1,5 +1,4 @@
 import { Card, Metric, Text } from "@tremor/react";
-import AlertButton from "../components/AlertButton";
 
 function Home() {
   return (
@@ -7,7 +6,6 @@ function Home() {
       <Card>
         <Metric>Home</Metric>
         <Text>Welcome to the home page!</Text>
-        <AlertButton />
       </Card>
     </div>
   );

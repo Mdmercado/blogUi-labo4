@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import useStore from "../store/useStore";
+import useStore from "../../store/useStore.js";
 import { Card, Text } from "@tremor/react";
 
 function Posts() {
