@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useLocation } from "wouter";
 
 const axiosInstance = axios.create({
   baseURL: "https://localhost:7259/api",
@@ -26,8 +27,9 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      console.log("No autorizado, redirigiendo al login");
-      window.location.href = "/login"; // reemplazar por wouter
+      localStorage.removeItem("authToken");
+      const [, setLocation] = useLocation();
+      setLocation("/login");
     }
     return Promise.reject(error);
   }
