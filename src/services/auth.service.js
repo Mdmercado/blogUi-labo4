@@ -1,15 +1,33 @@
 import axiosInstance from "../api/axiosInstance";
+import Swal from "sweetalert2";
 
 export const register = async (credentials) => {
-  const response = await axiosInstance.post("/register", credentials);
-  localStorage.setItem("authToken", response.data.token);
-  return response.data;
+  try {
+    const response = await axiosInstance.post("/auth/register", credentials);
+    return response.data;
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Registration Failed",
+      text: error.message,
+    });
+    throw error;
+  }
 };
 
 export const login = async (credentials) => {
-  const response = await axiosInstance.post("/login", credentials);
-  localStorage.setItem("authToken", response.data.token);
-  return response.data;
+  try {
+    const response = await axiosInstance.post("/auth/login", credentials);
+    localStorage.setItem("authToken", response.data.token);
+    return response.data;
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Login Failed",
+      text: error.message,
+    });
+    throw error;
+  }
 };
 
 export const logout = () => {
