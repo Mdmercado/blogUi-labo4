@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { Link } from "wouter";
 import { useRegister } from "../../hooks/useAuth";
 import InputField from "../Common/InputField";
 import Button from "../Common/Button";
@@ -89,8 +90,9 @@ const RegisterForm = () => {
         register={register}
       />
       <div
-        className="
-        flex items-center mt-4
+        className=" w-full
+        flex items-center mt-4 justify-between
+        md:flex-col
       ">
         <Button
           text="Registrarse"
@@ -99,6 +101,9 @@ const RegisterForm = () => {
           disabled={registerMutation.isPending}
           isLoading={registerMutation.isPending}
         />
+        <div className=" text-orange-500">
+          <Link to="/">Continuar como invitado</Link>
+        </div>
       </div>
     </form>
   );
