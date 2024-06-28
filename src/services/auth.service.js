@@ -18,7 +18,9 @@ export const register = async (credentials) => {
 export const login = async (credentials) => {
   try {
     const response = await axiosInstance.post("/auth/login", credentials);
-    localStorage.setItem("authToken", response.data.token);
+    const { token, user } = response.data;
+    localStorage.setItem("authToken", token);
+    localStorage.setItem("user", JSON.stringify(user));
     return response.data;
   } catch (error) {
     Swal.fire({
@@ -32,4 +34,5 @@ export const login = async (credentials) => {
 
 export const logout = () => {
   localStorage.removeItem("authToken");
+  localStorage.removeItem("user");
 };
