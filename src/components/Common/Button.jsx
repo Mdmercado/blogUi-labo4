@@ -1,5 +1,5 @@
 import { Button } from "@tremor/react";
-const btn = ({ text, onClick, type, color, isLoading }) => {
+const Btn = ({ text, onClick, type, color, isLoading }) => {
   return (
     <Button
       type={type}
@@ -12,4 +12,4 @@ const btn = ({ text, onClick, type, color, isLoading }) => {
     </Button>
   );
 };
-export default btn;
+export default Btn;

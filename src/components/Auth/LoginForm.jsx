@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { Link } from "wouter";
 import { useLogin } from "../../hooks/useAuth";
 import InputField from "../Common/InputField";
 import Btn from "../Common/Button.jsx";
@@ -65,10 +66,16 @@ const LoginForm = () => {
       <div className="text-center mt-4">
         <p className="text-gray-600">
           ¿Nuevo en el blog?{" "}
-          <a href="/register" className="text-orange-500 hover:text-orange-700">
+          <Link
+            href="/register"
+            className="text-orange-500 hover:text-orange-700">
             Registrarse
-          </a>
+          </Link>
         </p>
+      </div>
+
+      <div className="text-center text-orange-500">
+        <Link to="/">Continuar como invitado</Link>
       </div>
     </>
   );
