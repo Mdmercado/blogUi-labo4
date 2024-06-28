@@ -1,18 +1,21 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { useLocation } from "wouter";
-import { login, register } from "../services/auth.service";
+import { login, register, logout } from "../services/auth.service";
+import { getAllUsers } from "../services/user.service";
 import useStore from "../store/useStore";
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
   const setAuthToken = useStore((state) => state.setAuthToken);
+  const setUser = useStore((state) => state.setUser);
   const [, setLocation] = useLocation();
 
   return useMutation({
     mutationFn: login,
     onSuccess: (data) => {
       setAuthToken(data.token);
+      setUser(data.user);
       queryClient.invalidateQueries("user");
       setLocation("/");
     },
@@ -26,7 +29,6 @@ export const useLogin = () => {
     },
   });
 };
-
 export const useRegister = () => {
   const queryClient = useQueryClient();
   const setAuthToken = useStore((state) => state.setAuthToken);
@@ -52,6 +54,46 @@ export const useRegister = () => {
         icon: "error",
         confirmButtonText: "Entendido",
       });
+    },
+  });
+};
+export const useLogout = () => {
+  const clearAuth = useStore((state) => state.clearAuth);
+
+  return useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      clearAuth();
+      Swal.fire({
+        title: "Sesión cerrada",
+        text: "Has cerrado sesión correctamente",
+        icon: "success",
+        confirmButtonText: "Entendido",
+      });
+    },
+    onError: () => {
+      Swal.fire({
+        title: "Error!",
+        text: "Ha ocurrido un error al cerrar la sesión",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    },
+  });
+};
+
+export const useFetchUsers = () => {
+  const user = useStore((state) => state.user);
+  const setUsers = useStore((state) => state.setUsers);
+  return useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      if (user) {
+        const data = await getAllUsers();
+        setUsers(data);
+        return data;
+      }
+      return [];
     },
   });
 };
