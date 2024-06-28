@@ -1,9 +1,9 @@
 import { Router, Route, Switch } from "wouter";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Login from "./pages/Login/LoginPage";
 import Register from "./pages/Register/RegistrerPage";
-import Home from "./pages/Home";
+import Home from "./components/Layout/Home";
+import Layout from "./components/Layout";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +14,9 @@ function App() {
         <div className="App">
           <Switch>
             <Route exact path="/">
-              <Home />
+              <Layout>
+                <Home />
+              </Layout>
             </Route>
             <Route exact path="/login">
               <Login />
@@ -25,7 +27,6 @@ function App() {
           </Switch>
         </div>
       </Router>
-      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
