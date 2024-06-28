@@ -11,13 +11,6 @@ Este proyecto consiste en una aplicación web inspirada en la funcionalidad bás
 - React Router DOM
 - Tremor UI
 
-### Backend:
-
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose (ORM)
-
 ### Gestión de Estado:
 
 - Zustand (estado global)
